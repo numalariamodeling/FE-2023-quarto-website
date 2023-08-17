@@ -354,6 +354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#parts-of-a-demographics-file" id="toc-parts-of-a-demographics-file" class="nav-link" data-scroll-target="#parts-of-a-demographics-file">Parts of a demographics file</a></li>
   <li><a href="#single-node-simulations" id="toc-single-node-simulations" class="nav-link" data-scroll-target="#single-node-simulations">Single-node simulations</a></li>
+  <li><a href="#fixed-birth-rate-and-age-equilibrium" id="toc-fixed-birth-rate-and-age-equilibrium" class="nav-link" data-scroll-target="#fixed-birth-rate-and-age-equilibrium">Fixed birth rate and age equilibrium</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -456,6 +457,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> demog</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="fixed-birth-rate-and-age-equilibrium" class="level2">
+<h2 class="anchored" data-anchor-id="fixed-birth-rate-and-age-equilibrium">Fixed birth rate and age equilibrium</h2>
+<p>The example above is based on the assumption that you set the population dynamic, controlled by <code>Birth_Rate_Dependence</code> to <code>POPULATION_DEP_RATE</code> (the default). However, in the situation where you want to use <code>FIXED_BIRTH_RATE</code>, then setting as above will cause the birth to be near zero, because birth rate in the <code>POPULATION_DEP_RATE</code> is read as probability of birth per person in the model per day. In the <code>FIXED_BIRTH_RATE</code> setting, birth rate is read as probability of birth per day.</p>
+<p>As a result, it is recommended that you choose a crude birth rate that works for you (birth per 1000 population per year), and create your demographic this way:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> emodpy_malaria.demographics.MalariaDemographics <span class="im">as</span> Demographics</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emod_api.demographics.DemographicsTemplates <span class="im">import</span> CrudeRate</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_demog():</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">    This function builds a demographics input file for the DTK using emod_api.</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    pop <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    crude_rate <span class="op">=</span> <span class="fl">38.92</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    demog <span class="op">=</span> Demographics.from_template_node(lat<span class="op">=</span><span class="fl">1.00</span>, lon<span class="op">=</span><span class="fl">1.00</span>, pop<span class="op">=</span>pop, name<span class="op">=</span><span class="st">"Example_Site_Name"</span>, forced_id<span class="op">=</span><span class="dv">1</span>, init_prev<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set Birth and Death Rate    </span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    demog.SetBirthRate(CrudeRate(crude_rate<span class="op">*</span>pop))</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    demog.SetMortalityRate(CrudeRate(crude_rate))</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set age distribution to equilibrium</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    demog.SetEquilibriumAgeDistFromBirthAndMortRates(CrudeRate(crude_rate),</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                                                     CrudeRate(crude_rate))</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> demog</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Basically, the birth rate needs to be set differently to account for the difference between using <code>FIXED_BIRTH_RATE</code> and <code>POPULATION_DEP_RATE</code>. Note that in this example, the mortality rate is also set to the birth rate to ensure that the population is stable and at equilibrium. Finally, we use the <code>SetEquilibriumAgeDistFromBirthAndMortRates</code> to make sure the age distribution is already at equilibrium given the birth and death rates right from the beginning. You might notice that this means the age distribution in the model is not the same as the “real world”. The actual age distribution in the model can only be achieved if you supply the birth and death (by age) rates over the years of simulations. With constant birth rate and equilibrium vital dynamics, the age distribution will move into a fixed shape even if you start off with a different age distribution.</p>
 
 
 </section>
