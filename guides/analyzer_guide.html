@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -82,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -91,6 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -129,6 +136,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="../styles.css">
 </head>
 
@@ -138,12 +172,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guides/install_guide.html">EMOD How-To Guides</a></li><li class="breadcrumb-item"><a href="../guides/analyzer_guide.html">Analyzer Guides</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guides/install_guide.html">EMOD How-To Guides</a></li><li class="breadcrumb-item"><a href="../guides/analyzer_guide.html">Analyzer Guides</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -153,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../numalaria_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -374,7 +408,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -392,7 +426,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guides/install_guide.html">EMOD How-To Guides</a></li><li class="breadcrumb-item"><a href="../guides/analyzer_guide.html">Analyzer Guides</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Analyzer Guides</h1>
 </div>
@@ -407,13 +441,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p><em>Analyze reported outputs from a collection of a simulations.</em></p>
 <p>Most of <a href="https://docs.idmod.org/projects/emod-malaria/en/latest/software-outputs.html">EMOD generated output files</a> are in json format, and the remainder are csv’s. In <code>emodpy</code>, <em>Analyzer</em> functions facilitate extracting information from EMOD’s raw output files to produce results in csv’s or as figures.</p>
 <section id="required-modules" class="level2">
 <h2 class="anchored" data-anchor-id="required-modules">Required modules</h2>
-<div class="cell">
+<div id="d568a403" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -431,7 +467,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The <code>filter</code> function is optional. It allows the analyzer to only analyze a subset of simulations in an experiment by filtering based on simulation tags. For example, the user can request the analyzer only analyze simulations where the tag <code>SMC_Coverage</code> has the value 1 (if this is a tag the user specified when building their experiment), or simulations that succeeded. This functionality can be useful when debugging large experiments. If the <code>filter</code> function is not specified, then all simulations are targeted for analysis.</p>
 <p>The <code>map</code> is a custom function applied to extract data from the EMOD output file and needs to be modified the most across different EMOD output file types and according to the user’s needs.</p>
 <p>Finally, the <code>reduce</code> checks the extracted data, aggregates data from multiple simulations in the same experiment, and then saves or plots the data. The checking of the simulation stays mostly the same across simulations while the part of processing the simulation data is highly variable across projects and depends on the desired results.</p>
-<div class="cell">
+<div id="4f9e44cf" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> InsetChartAnalyzer(IAnalyzer): ...</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1 - Definition of custom parameters and object attributes</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, ...)</span>
@@ -452,7 +488,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="setup-analyzer-class-define-variables" class="level4">
 <h4 class="anchored" data-anchor-id="setup-analyzer-class-define-variables">Setup analyzer class &amp; define variables</h4>
 <p>You don’t need to understand the python fundamentals in depth, just what each line does and what to modify. - The first two lines including the <code>__init__(self,...)</code> and <code>super</code> is required in each analyzer class. Be sure to update the analyzer name in <code>super</code>. - The second line <code>filenames=["output/InsetChart.json"]</code> defines the EMOD output file to be analyzed. It is written in a list so that analyzers have the capability of combining data from multiple files. Generally we use 1 output file per analyzer. - The next lines that start with <code>self</code> attach each argument that the user has passed to the analyzer (<code>expt_name</code>, etc) to the analyzer class via <code>self</code>. This allows easy access to any of these values from any analyzer function via the <code>self</code> object. - This analyzer allows the user to specify the parameters <code>expt_name</code>, <code>sweep_variables</code> , <code>channels</code>, and <code>start_year</code>. Generally we use <code>expt_name</code> and <code>sweep_variables</code> across all analyzers we write, while the others are specific to this particular analyzer. All these requested parameters can be modified or extended with additional parameters if needed, according to the user’s needs. - These parameters allow the analyzer to take in experiment specific values, for instance simulation <code>start_year</code> is used to convert timesteps into date-time values, as we generally run EMOD in simulation time instead of calendar time. - The <code>expt_name</code> parameter lets the user specify the name of the experiment. We often use the experiment name in the file names of outputs from the analyzer, for example aggregated csv’s and figures. - The <code>sweep_variables</code> parameter is a list of simulation tags from the experiment that the user would like attached to each simulation. For example, <code>Run_Number</code> to track the random seed, or <code>SMC_Coverage</code> if the experiment sweeps over SMC coverage. - The <code>channels</code> is an optional parameter as it takes default values if not specified. It is included in this analyzer so the user has the flexibility to extract different channels from InsetChart.json if needed. If the same channels are always used, one could instead hard code the desired channel names into <code>self.channels</code> and remove the optional argument.</p>
-<div class="cell">
+<div id="9cb37ecc" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MonthlyInsetChartAnalyzer(IAnalyzer):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, expt_name, sweep_variables<span class="op">=</span><span class="va">None</span>, channels<span class="op">=</span><span class="va">None</span>, working_dir<span class="op">=</span><span class="st">"."</span>, start_year<span class="op">=</span><span class="dv">2022</span>):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(MonthlyInsetChartAnalyzer, <span class="va">self</span>).<span class="fu">__init__</span>(working_dir<span class="op">=</span>working_dir, filenames<span class="op">=</span>[<span class="st">"output/InsetChart.json"</span>])</span>
@@ -469,7 +505,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this example using <code>InsetChart.json</code>, we read in the data from the json file, keeping only channels that have been specified in <code>self.channels</code>, and convert into a pandas dataframe. The dataframe will have one column for each channel, and each row is the channel value for each timestep in the simulation.</p>
 <p>Next, we want to convert the timesteps (row number) into calendar dates. Those are the next 5 lines. We copy <code>simdata.index</code> into <code>simdata['Time']</code> and create additional variables for Day, Month and Year that are easier to work with, as well as a <code>date</code> column that is a <code>datetime.date</code> object.</p>
 <p>Finally, the sweep variables corresponding to the simulation tags of the experiment are attached, the dataframe is returned, and the returned dataframe is automatically passed on to the next and final step of the analyzer. It is not required to return a dataframe but it is required to return something: the data of interest from the simulation.</p>
-<div class="cell">
+<div id="af01f46c" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">map</span>(<span class="va">self</span>, data, simulation):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        simdata <span class="op">=</span> pd.DataFrame({x: data[<span class="va">self</span>.filenames[<span class="dv">0</span>]][<span class="st">'Channels'</span>][x][<span class="st">'Data'</span>] <span class="cf">for</span> x <span class="kw">in</span> <span class="va">self</span>.inset_channels})</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        simdata[<span class="st">'Time'</span>] <span class="op">=</span> simdata.index</span>
@@ -487,7 +523,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="reduce">Reduce</h4>
 <p>This part checks the simulation data returned by <code>map()</code> and aggregates data across all simulations in the experiment into the <code>adf</code> dataframe. In this example, the analyzer saves results into the specified working_dir/expt_name subfolder. Other analyzers may use the <code>reduce()</code> function to plot and save a figure.</p>
 <p>We typically do not modify the first 4 lines of <code>reduce()</code> (creation of <code>selected</code> and checking that it contains data). If <code>map()</code> returns a dataframe, then the <code>adf = ...</code> line can stay the same as well. Everything after that should be customized to the user’s needs.</p>
-<div class="cell">
+<div id="63188d8f" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">map</span>(<span class="va">self</span>, all_data):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        selected <span class="op">=</span> [data <span class="cf">for</span> sim, data <span class="kw">in</span> all_data.items()]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(selected) <span class="op">==</span> <span class="dv">0</span>:</span>
@@ -502,12 +538,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="optional-analyzer-extensions-and-helper-functions" class="level4">
 <h4 class="anchored" data-anchor-id="optional-analyzer-extensions-and-helper-functions">Optional analyzer extensions and helper functions</h4>
 <p>For instance selecting only simulations with <code>SMC_Coverage</code> at 0.5:</p>
-<div class="cell">
+<div id="cd33aa69" class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">filter</span>(<span class="va">self</span>, simulation):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> simulation.tags[<span class="st">"SMC_Coverage"</span>] <span class="op">==</span> <span class="fl">0.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Helper function to convert months.</p>
-<div class="cell">
+<div id="eb8bd52b" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    <span class="at">@classmethod</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> monthparser(<span class="va">self</span>, x):</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> x <span class="op">==</span> <span class="dv">0</span>:</span>
@@ -524,7 +560,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
 <div class="list grid quarto-listing-cols-1">
-<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1697219340714" data-listing-reading-time-sort="4">
+<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1714753035655" data-listing-reading-time-sort="4" data-listing-word-count-sort="655">
 <a href="../guides/analyzer_guide_pages/MalariaSummaryReport_analyzer.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -538,7 +574,7 @@ The summary report aggregates the monitored simulation outputs into user-specifi
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1697219340714" data-listing-reading-time-sort="2">
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1714753035655" data-listing-reading-time-sort="2" data-listing-word-count-sort="357">
 <a href="../guides/analyzer_guide_pages/event_analyzer.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -546,13 +582,13 @@ The summary report aggregates the monitored simulation outputs into user-specifi
 Event Analysis
 </h5>
 <div class="card-text listing-description">
-The <code>ReportEventCounter</code>, <code>InsetChart</code>, and <code>ReportMalariaFiltered</code> json outputs all have…
+The <code>ReportEventCounter</code>, <code>InsetChart</code>, and <code>ReportMalariaFiltered</code> json outputs all have very similar structure, so an analyzer written for one of these output types can usually…
 </div>
 </div>
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1697219340714" data-listing-reading-time-sort="1">
+<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1714753035655" data-listing-reading-time-sort="1" data-listing-word-count-sort="4">
 <a href="../guides/analyzer_guide_pages/spatial_analyzer.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -650,10 +686,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/numalariamodeling\.github\.io\/FE-2023-quarto-website\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -663,8 +716,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -676,7 +738,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -720,6 +905,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -745,6 +931,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -810,12 +1022,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">© NU Malaria Modeling 2023</div>
+    <div class="nav-footer-center">
+<p>© NU Malaria Modeling 2023</p>
+</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
+
 
 
 
