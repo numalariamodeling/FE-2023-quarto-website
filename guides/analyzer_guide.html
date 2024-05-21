@@ -449,7 +449,7 @@ window.Quarto = {
 <p>Most of <a href="https://docs.idmod.org/projects/emod-malaria/en/latest/software-outputs.html">EMOD generated output files</a> are in json format, and the remainder are csv’s. In <code>emodpy</code>, <em>Analyzer</em> functions facilitate extracting information from EMOD’s raw output files to produce results in csv’s or as figures.</p>
 <section id="required-modules" class="level2">
 <h2 class="anchored" data-anchor-id="required-modules">Required modules</h2>
-<div id="b984eba7" class="cell">
+<div id="b971f495" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -467,7 +467,7 @@ window.Quarto = {
 <p>The <code>filter</code> function is optional. It allows the analyzer to only analyze a subset of simulations in an experiment by filtering based on simulation tags. For example, the user can request the analyzer only analyze simulations where the tag <code>SMC_Coverage</code> has the value 1 (if this is a tag the user specified when building their experiment), or simulations that succeeded. This functionality can be useful when debugging large experiments. If the <code>filter</code> function is not specified, then all simulations are targeted for analysis.</p>
 <p>The <code>map</code> is a custom function applied to extract data from the EMOD output file and needs to be modified the most across different EMOD output file types and according to the user’s needs.</p>
 <p>Finally, the <code>reduce</code> checks the extracted data, aggregates data from multiple simulations in the same experiment, and then saves or plots the data. The checking of the simulation stays mostly the same across simulations while the part of processing the simulation data is highly variable across projects and depends on the desired results.</p>
-<div id="aa21d12a" class="cell">
+<div id="dc3690e3" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> InsetChartAnalyzer(IAnalyzer): ...</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1 - Definition of custom parameters and object attributes</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, ...)</span>
@@ -488,7 +488,7 @@ window.Quarto = {
 <section id="setup-analyzer-class-define-variables" class="level4">
 <h4 class="anchored" data-anchor-id="setup-analyzer-class-define-variables">Setup analyzer class &amp; define variables</h4>
 <p>You don’t need to understand the python fundamentals in depth, just what each line does and what to modify. - The first two lines including the <code>__init__(self,...)</code> and <code>super</code> is required in each analyzer class. Be sure to update the analyzer name in <code>super</code>. - The second line <code>filenames=["output/InsetChart.json"]</code> defines the EMOD output file to be analyzed. It is written in a list so that analyzers have the capability of combining data from multiple files. Generally we use 1 output file per analyzer. - The next lines that start with <code>self</code> attach each argument that the user has passed to the analyzer (<code>expt_name</code>, etc) to the analyzer class via <code>self</code>. This allows easy access to any of these values from any analyzer function via the <code>self</code> object. - This analyzer allows the user to specify the parameters <code>expt_name</code>, <code>sweep_variables</code> , <code>channels</code>, and <code>start_year</code>. Generally we use <code>expt_name</code> and <code>sweep_variables</code> across all analyzers we write, while the others are specific to this particular analyzer. All these requested parameters can be modified or extended with additional parameters if needed, according to the user’s needs. - These parameters allow the analyzer to take in experiment specific values, for instance simulation <code>start_year</code> is used to convert timesteps into date-time values, as we generally run EMOD in simulation time instead of calendar time. - The <code>expt_name</code> parameter lets the user specify the name of the experiment. We often use the experiment name in the file names of outputs from the analyzer, for example aggregated csv’s and figures. - The <code>sweep_variables</code> parameter is a list of simulation tags from the experiment that the user would like attached to each simulation. For example, <code>Run_Number</code> to track the random seed, or <code>SMC_Coverage</code> if the experiment sweeps over SMC coverage. - The <code>channels</code> is an optional parameter as it takes default values if not specified. It is included in this analyzer so the user has the flexibility to extract different channels from InsetChart.json if needed. If the same channels are always used, one could instead hard code the desired channel names into <code>self.channels</code> and remove the optional argument.</p>
-<div id="b6579373" class="cell">
+<div id="965bc2c4" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MonthlyInsetChartAnalyzer(IAnalyzer):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, expt_name, sweep_variables<span class="op">=</span><span class="va">None</span>, channels<span class="op">=</span><span class="va">None</span>, working_dir<span class="op">=</span><span class="st">"."</span>, start_year<span class="op">=</span><span class="dv">2022</span>):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(MonthlyInsetChartAnalyzer, <span class="va">self</span>).<span class="fu">__init__</span>(working_dir<span class="op">=</span>working_dir, filenames<span class="op">=</span>[<span class="st">"output/InsetChart.json"</span>])</span>
@@ -505,7 +505,7 @@ window.Quarto = {
 <p>In this example using <code>InsetChart.json</code>, we read in the data from the json file, keeping only channels that have been specified in <code>self.channels</code>, and convert into a pandas dataframe. The dataframe will have one column for each channel, and each row is the channel value for each timestep in the simulation.</p>
 <p>Next, we want to convert the timesteps (row number) into calendar dates. Those are the next 5 lines. We copy <code>simdata.index</code> into <code>simdata['Time']</code> and create additional variables for Day, Month and Year that are easier to work with, as well as a <code>date</code> column that is a <code>datetime.date</code> object.</p>
 <p>Finally, the sweep variables corresponding to the simulation tags of the experiment are attached, the dataframe is returned, and the returned dataframe is automatically passed on to the next and final step of the analyzer. It is not required to return a dataframe but it is required to return something: the data of interest from the simulation.</p>
-<div id="3dffb3a3" class="cell">
+<div id="872b6a1a" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">map</span>(<span class="va">self</span>, data, simulation):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        simdata <span class="op">=</span> pd.DataFrame({x: data[<span class="va">self</span>.filenames[<span class="dv">0</span>]][<span class="st">'Channels'</span>][x][<span class="st">'Data'</span>] <span class="cf">for</span> x <span class="kw">in</span> <span class="va">self</span>.inset_channels})</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        simdata[<span class="st">'Time'</span>] <span class="op">=</span> simdata.index</span>
@@ -523,7 +523,7 @@ window.Quarto = {
 <h4 class="anchored" data-anchor-id="reduce">Reduce</h4>
 <p>This part checks the simulation data returned by <code>map()</code> and aggregates data across all simulations in the experiment into the <code>adf</code> dataframe. In this example, the analyzer saves results into the specified working_dir/expt_name subfolder. Other analyzers may use the <code>reduce()</code> function to plot and save a figure.</p>
 <p>We typically do not modify the first 4 lines of <code>reduce()</code> (creation of <code>selected</code> and checking that it contains data). If <code>map()</code> returns a dataframe, then the <code>adf = ...</code> line can stay the same as well. Everything after that should be customized to the user’s needs.</p>
-<div id="b927dc3e" class="cell">
+<div id="56c82b9c" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">map</span>(<span class="va">self</span>, all_data):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        selected <span class="op">=</span> [data <span class="cf">for</span> sim, data <span class="kw">in</span> all_data.items()]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(selected) <span class="op">==</span> <span class="dv">0</span>:</span>
@@ -538,12 +538,12 @@ window.Quarto = {
 <section id="optional-analyzer-extensions-and-helper-functions" class="level4">
 <h4 class="anchored" data-anchor-id="optional-analyzer-extensions-and-helper-functions">Optional analyzer extensions and helper functions</h4>
 <p>For instance selecting only simulations with <code>SMC_Coverage</code> at 0.5:</p>
-<div id="66c8e670" class="cell">
+<div id="dce403ba" class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">filter</span>(<span class="va">self</span>, simulation):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> simulation.tags[<span class="st">"SMC_Coverage"</span>] <span class="op">==</span> <span class="fl">0.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Helper function to convert months.</p>
-<div id="35938acd" class="cell">
+<div id="27034a7f" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    <span class="at">@classmethod</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> monthparser(<span class="va">self</span>, x):</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> x <span class="op">==</span> <span class="dv">0</span>:</span>
@@ -560,7 +560,7 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
 <div class="list grid quarto-listing-cols-1">
-<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1716316260477" data-listing-reading-time-sort="4" data-listing-word-count-sort="655">
+<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1716316578730" data-listing-reading-time-sort="4" data-listing-word-count-sort="655">
 <a href="../guides/analyzer_guide_pages/MalariaSummaryReport_analyzer.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -574,7 +574,7 @@ The summary report aggregates the monitored simulation outputs into user-specifi
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1716316260477" data-listing-reading-time-sort="2" data-listing-word-count-sort="357">
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1716316578730" data-listing-reading-time-sort="2" data-listing-word-count-sort="357">
 <a href="../guides/analyzer_guide_pages/event_analyzer.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -588,7 +588,7 @@ The <code>ReportEventCounter</code>, <code>InsetChart</code>, and <code>ReportMa
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1716316260477" data-listing-reading-time-sort="1" data-listing-word-count-sort="4">
+<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1716316578730" data-listing-reading-time-sort="1" data-listing-word-count-sort="4">
 <a href="../guides/analyzer_guide_pages/spatial_analyzer.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
