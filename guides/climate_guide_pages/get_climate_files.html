@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>This csv is passed as the <code>site_file</code> to <code>emodpy-malaria's</code> <a href="https://docs.idmod.org/projects/emodpy-malaria/en/latest/emodpy_malaria.weather.html#emodpy_malaria.weather.generate_weather"><code>generate_weather()</code></a> function along with the <code>node_column</code> that provides the name of our node ID column in the csv and <code>local_dir</code> which specifies that output directory. From there we can also specify things like: - <code>platform</code>: where the request work item will run (Calculon if associated with IDM) - <code>start_date</code> and <code>end_dates</code>: identify the period of time we are interested in requesting weather for - <code>id_reference</code>: specify the IDReference attribute for the weather metadata - <code>force</code>: flag ensuring that a new request is submitted even if the files exist in the <code>local_dir</code></p>
-<div id="17b3fc73" class="cell">
+<div id="35f3f779" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tempfile</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emodpy_malaria.weather <span class="im">import</span> generate_weather</span>
@@ -184,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(wr.files))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After completing these steps, there should be climate files for air_temperature, rainfall, and relative_humidity in your inputs folder. To reference these when running a simulation, update the configuration parameters to reflect the name and location of your climate files:</p>
-<div id="a1a306ee" class="cell">
+<div id="682e69a8" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> set_param_fn(config):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> emodpy_malaria.malaria_config <span class="im">as</span> conf</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    config <span class="op">=</span> conf.set_team_defaults(config, manifest)</span>
