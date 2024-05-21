@@ -150,7 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="aggregate-events---reporteventcounter" class="level1">
 <h1>Aggregate Events - ReportEventCounter</h1>
 <p>To track how many events are occurring each day, request <a href="https://docs.idmod.org/projects/emod-malaria/en/latest/software-report-event-counter.html"><code>ReportEventCounter</code></a> with <a href="https://docs.idmod.org/projects/emodpy-malaria/en/latest/emodpy_malaria.reporters.builtin.html#emodpy_malaria.reporters.builtin.add_report_event_counter"><code>add_report_event_counter()</code></a> and specify the list of events you would like to track, in this case receiving either of the two above drug-based interventions:</p>
-<div id="87892d44" class="cell">
+<div id="0980d47c" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emodpy_malaria.reporters.builtin <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sim_years <span class="op">=</span> <span class="dv">5</span></span>
@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="individual-events---reporteventrecorder" class="level1">
 <h1>Individual Events - ReportEventRecorder</h1>
 <p>Sometimes you may want to track individual-level events. To do so, we use <a href="https://github.com/numalariamodeling/emodpy-malaria/blob/main/emodpy_malaria/reporters/builtin.py"><code>add_event_recorder()</code></a> to call the <a href="https://docs.idmod.org/projects/emod-malaria/en/latest/software-report-event-recorder.html"><code>ReportEventRecorder</code></a>, which is similar to <code>ReportEventCounter</code> but lists each event as it occurs and provides information about the person experiencing the event. The calls for these two reports are quite similar but the recorder uses <code>event_list</code> rather than <code>event_trigger_list</code> and has no <code>filename_suffix</code>:</p>
-<div id="bbc86ccb" class="cell">
+<div id="314b84a7" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emodpy_malaria.reporters.builtin <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sim_years <span class="op">=</span> <span class="dv">5</span></span>

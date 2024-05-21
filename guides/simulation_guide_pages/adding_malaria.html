@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="outbreaks">1. Outbreaks</h2>
 <p>Force a given fraction (<code>demographic_coverage</code>) of the simulated population to experience a new infection on a specified date or dates with an <a href="https://github.com/numalariamodeling/emodpy-malaria/blob/main/emodpy_malaria/interventions/outbreak.py"><code>add_outbreak_individual()</code></a> campaign.</p>
 <p>This example infects 5% of the population every year for 5 years, beginning on day 0:</p>
-<div id="ef647b8b" class="cell">
+<div id="dac8764b" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emodpy_malaria.interventions.outbreak <span class="im">import</span> add_outbreak_individual</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> emod_api.campaign <span class="im">as</span> campaign</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="forced-eir" class="level2">
 <h2 class="anchored" data-anchor-id="forced-eir">2. Forced EIR</h2>
 <p>For simulations without mosquitoes, a forced EIR campaign can be used to impose infectious bites. EIR timeseries data are typically recreated from previous literature sources that provide monthly EIR levels, input here as a monthly_site_EIR_annualized list. The <a href="https://github.com/numalariamodeling/emodpy-malaria/blob/main/emodpy_malaria/interventions/inputeir.py"><code>add_scheduled_input_eir()</code></a> function is called and given the calculated monthly EIR (the annual values divided by 12) to apply to the simulations. You may also choose to use daily values if you interpolate from monthly using the <code>daily_eir</code> argument instead of <code>monthly_eir</code>. The EIR can be scaled up or down using a <code>scaling_factor</code> to apply the same change to all EIR timepoints, in this example we scale the EIR to be 75% of the input values. Additionally, EIR can be setup to be age-dependent with <code>age_dependence</code> set to “OFF”, “LINEAR”, or “SURFACE_AREA_DEPENDENT”.</p>
-<div id="e9e86d45" class="cell">
+<div id="815e6cc6" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emodpy_malaria.interventions.inputeir <span class="im">import</span> add_scheduled_input_eir</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> emod_api.campaign <span class="im">as</span> campaign</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -184,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="setting-initial-prevalence">3. Setting initial prevalence</h2>
 <p>Initial prevalence is set in the demographics file, in the <code>['Defaults']['IndividualAttributes']</code> block. See <a href="https://docs.idmod.org/projects/emod-malaria/en/latest/parameter-demographics.html">documentation on the demographics file</a> for more information.</p>
 <p>It can be set simply, as in the <a href="https://numalariamodeling.github.io/FE-2023-quarto-website/guides/demographics_guide_pages/demographics_files.html">demographics example</a>, or you can also add a initial prevalence value draw from a uniform distribution if desired. In this example, the value is pulled in a uniform draw from 0.1 to 0.2. Setting-specific mosquitoes should also be added to the simulation to maintain transmission in the population using the <a href="https://numalariamodeling.github.io/FE-2023-quarto-website/guides/vector_guide_pages/vector_species.html">vector configuration how tos</a>.</p>
-<div id="322936d1" class="cell">
+<div id="5d1b89f9" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> emodpy_malaria.demographics.MalariaDemographics <span class="im">as</span> Demographics</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_demog():</span>
