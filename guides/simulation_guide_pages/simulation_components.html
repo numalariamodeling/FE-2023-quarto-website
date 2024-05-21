@@ -113,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="create-a-model" class="level2">
 <h2 class="anchored" data-anchor-id="create-a-model">Create a model</h2>
 <p>EMOD configuration scripts contain five primary components: 1. Import modules - Import all necessary modules and functions to run subsequent script 2. Config setup &amp; simulation duration - Set <code>config.json</code> parameters to team defaults and update additional parameters as needed using a callback to the <code>emod-api</code> config. For example, one can specify different simulation types such as <strong>MALARIA_SIM</strong> or <strong>VECTOR_SIM</strong> to simulate just the vector model without the malaria within-host model, or other simulation types listed <a href="https://docs.idmod.org/projects/emod-malaria/en/latest/glossary.html?highlight=Sim_Type#term-simulation-type">here</a>.</p>
-<pre><code>      ::: {#3b2e7e4b .cell}
+<pre><code>      ::: {#53a856e2 .cell}
       ``` {.python .cell-code}
       def set_param_fn(config):
           import emodpy_malaria.malaria_config as conf
@@ -130,7 +130,7 @@ ul.task-list li input[type="checkbox"] {
     - Build a campaign file using the `emod-api` schema. This is where desired interventions should be added.
 
 
-      ::: {#76e2a9fd .cell}
+      ::: {#4bba5a68 .cell}
       ``` {.python .cell-code}
       def build_camp():
           camp.schema_path = manifest.schema_file
@@ -143,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
     - Build a demographics file using `emod-api`. This is typically done through [`from_template_node`](https://github.com/numalariamodeling/emodpy-malaria/blob/main/emodpy_malaria/demographics/MalariaDemographics.py) for single node sims, but there are other methods available if needed ([*see demographics how to*](https://numalariamodeling.github.io/FE-2023-quarto-website/guides/demographics_guide.html))
 
 
-      ::: {#6ef7b151 .cell}
+      ::: {#508830df .cell}
       ``` {.python .cell-code}
       def build_demog():
           demog = Demographics.from_template_node(lat=1, lon=2, pop=10, name="Example_Site")
@@ -158,7 +158,7 @@ ul.task-list li input[type="checkbox"] {
     - The experiment can be built using `from_task` or `from_builder` depending on simulation complexity. When changes, such as with sweeps, are made outside of the initial campaign builder then `from_builder` is needed (*see model builder section below*)
 
 
-      ::: {#6251925a .cell}
+      ::: {#b1279e6e .cell}
       ``` {.python .cell-code}
       def general_sim(selected_platform):
           # Set platform and associated values, such as the maximum number of jobs to run at one time and other platform specifics

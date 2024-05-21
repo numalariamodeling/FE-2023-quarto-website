@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="malaria-summary-report" class="level3">
 <h3 class="anchored" data-anchor-id="malaria-summary-report">Malaria Summary Report</h3>
 <p>For the <a href="https://docs.idmod.org/projects/emod-malaria/en/latest/software-report-malaria-summary.html"><code>MalariaSummaryReport</code></a>, aggregation can be restricted by IP using the <code>ipfilter</code> argument. For example, the following function will report, on aggregate, every 30 days on new infections and other infection updates in the Placebo group across the three age bins.</p>
-<div id="29fca1b7" class="cell">
+<div id="02fa9ca5" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emodpy_malaria.reporters.builtin <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>add_malaria_summary_report(task, manifest, </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                           start_day<span class="op">=</span><span class="dv">1</span>, </span>
@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="property-report">Property Report</h3>
 <p>The <a href="https://docs.idmod.org/projects/emod-malaria/en/latest/software-report-property.html"><code>PropertyReport</code></a> outputs select channels (population, infected, new infections, and disease deaths) for all combinations of IPs and IP values. This output can get very large if there are many IPs and/or IP values in play.</p>
 <p>To request the <code>PropertyReport</code>:</p>
-<div id="e7dd7441" class="cell">
+<div id="3221d60f" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add to config parameter setup</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>config.parameters.Enable_Property_Output <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -175,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="node-demographics-report" class="level3">
 <h3 class="anchored" data-anchor-id="node-demographics-report">Node Demographics Report</h3>
 <p>The <a href="https://docs.idmod.org/projects/emod-malaria/en/latest/software-report-malaria-node-demographics.html"><code>NodeDemographicsReport</code></a> reports on node-level counts of individuals by age bin, infection status, and IPs if requested through <code>IP_key_to_collect</code>:</p>
-<div id="d6f0b3ba" class="cell">
+<div id="1767bafd" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emodpy_malaria.reporters.builtin <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>add_report_node_demographics(task, manifest, </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                             IP_key_to_collect<span class="op">=</span><span class="st">'StudyCohort'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -184,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="report-event-recorder" class="level3">
 <h3 class="anchored" data-anchor-id="report-event-recorder">Report Event Recorder</h3>
 <p>To add an IP column to <a href="https://docs.idmod.org/projects/emod-malaria/en/latest/software-report-event-recorder.html"><code>ReportEventRecorder</code></a> that reports the IP value for each individual experiencing the requested events, use <code>ips_to_record</code>:</p>
-<div id="54b15330" class="cell">
+<div id="59180b24" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emodpy_malaria.reporters.builtin <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>add_event_recorder(task, event_list<span class="op">=</span>[<span class="st">"NewClinicalCase"</span>,<span class="st">"Received_Treatment"</span>],</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                     start_day<span class="op">=</span><span class="dv">1</span>, end_day<span class="op">=</span><span class="dv">365</span>, node_ids<span class="op">=</span>[<span class="dv">1</span>], min_age_years<span class="op">=</span><span class="dv">0</span>,</span>

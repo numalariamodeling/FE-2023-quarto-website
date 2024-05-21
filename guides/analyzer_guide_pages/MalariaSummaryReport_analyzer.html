@@ -147,7 +147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="analyze-malariasummaryreport" class="level3">
 <h3 class="anchored" data-anchor-id="analyze-malariasummaryreport">Analyze MalariaSummaryReport</h3>
 <p>The summary report aggregates the monitored simulation outputs into user-specified agebins, monitoring intervals, and/or parasitemia bins. Outputs such as prevalence by age, incidence by age, and parasite density by age can be obtained through the summary report. Multiple summary reports can be requested in the simulation run script, and analyzers can be built to handle working with multiple summary reports.</p>
-<div id="664c4246" class="cell">
+<div id="aa7e6810" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AnnualAgebinPfPRAnalyzer(IAnalyzer):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, expt_name, sweep_variables<span class="op">=</span><span class="va">None</span>, working_dir<span class="op">=</span><span class="st">'./'</span>, start_year<span class="op">=</span><span class="dv">2022</span>,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                 end_year<span class="op">=</span><span class="dv">2025</span>, burnin<span class="op">=</span><span class="va">None</span>):</span>
@@ -158,7 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Within each summary report the channel <code>DataByTimeAndAgeBins</code> reports monitored outputs per <em>time</em> and <em>age</em> it therefore needs to be indexed twice, one for selecting time range and one for selecting agebin. The outer list is time and the inner list is age.</p>
 <p>In this example, the data of interest is in <code>DataByTimeAndAgeBins</code>: we extract, for each age group, annually-aggregated PfPR, clinical incidence, severe incidence, and population. All outcomes are combined into a dataframe for each age group, then the age-specific dataframes are concatenated into a single dataframe.</p>
 <p>Attaching the sweep variable for the respective simulation is done the same way across analyzers.</p>
-<div id="cdb5e5da" class="cell">
+<div id="82cda723" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">map</span>(<span class="va">self</span>, data, simulation):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        adf <span class="op">=</span> pd.DataFrame()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        nyears <span class="op">=</span> (<span class="va">self</span>.end_year <span class="op">-</span> <span class="va">self</span>.start_year)</span>
