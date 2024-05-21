@@ -164,140 +164,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>shp <span class="ot">&lt;-</span> <span class="fu">shapefile</span>(<span class="st">"data/burkina_70DS.shp"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>shp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>class       : SpatialPolygonsDataFrame 
-features    : 70 
-extent      : 224822.8, 1088963, 1040345, 1669090  (xmin, xmax, ymin, ymax)
-crs         : +proj=utm +zone=30 +datum=WGS84 +units=m +no_defs 
-variables   : 11
-names       : OBJECTID,  NOMDEP, SinistreIn, Innonde, NOMPROVINC,         NOMREGION, CommuneCib, CoomuneRis,    Shape_Leng,    Shape_Area, DS 
-min values  :        7, BANFORA,          0,       0,       BALE, BOUCLE DU MOUHOUN,          0,          0,  22326.136677, 28397716.1216,  0 
-max values  :      107,  ZORGHO,       3179,       1, ZOUNDWEOGO,         SUD-OUEST,          1,          1, 656058.771223, 14845528347.3, 69 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>itn_raster <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">"data/ITN2016.tif"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>itn_raster</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>class      : RasterLayer 
-dimensions : 156, 216, 33696  (nrow, ncol, ncell)
-resolution : 0.04166665, 0.04166665  (x, y)
-extent     : -6.00007, 2.999927, 8.999972, 15.49997  (xmin, xmax, ymin, ymax)
-crs        : +proj=longlat +datum=WGS84 +no_defs 
-source     : ITN2016.tif 
-names      : ITN2016 
-values     : 0.09760008, 0.8092381  (min, max)</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pop_raster <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">"data/bfa_ppp_2016_1km_Aggregated_UNadj.tif"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>pop_raster</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>class      : RasterLayer 
-dimensions : 682, 951, 648582  (nrow, ncol, ncell)
-resolution : 0.008333333, 0.008333333  (x, y)
-extent     : -5.517917, 2.407083, 9.407917, 15.09125  (xmin, xmax, ymin, ymax)
-crs        : +proj=longlat +datum=WGS84 +no_defs 
-source     : bfa_ppp_2016_1km_Aggregated_UNadj.tif 
-names      : bfa_ppp_2016_1km_Aggregated_UNadj 
-values     : 0.2217675, 6855.859  (min, max)</code></pre>
-</div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>shp</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>itn_raster <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">"data/ITN2016.tif"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>itn_raster</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pop_raster <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">"data/bfa_ppp_2016_1km_Aggregated_UNadj.tif"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>pop_raster</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The summaries for each of the object suggests that <code>shp</code> has a different CRS (Coordinate Reference System) than others. The CRS of all objects must align for our work here, and it’s easier to convert CRS in <code>shp</code> to that of other raster objects.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Please note that rgdal will be retired by the end of 2023,
-plan transition to sf/stars/terra functions using GDAL and PROJ
-at your earliest convenience.
-
-rgdal: version: 1.5-32, (SVN revision 1176)
-Geospatial Data Abstraction Library extensions to R successfully loaded
-Loaded GDAL runtime: GDAL 3.6.4, released 2023/04/17
-Path to GDAL shared files: /usr/share/gdal
- GDAL does not use iconv for recoding strings.
-GDAL binary built with GEOS: TRUE 
-Loaded PROJ runtime: Rel. 9.1.1, December 1st, 2022, [PJ_VERSION: 911]
-Path to PROJ shared files: /home/runner/.local/share/proj:/usr/share/proj
-PROJ CDN enabled: FALSE
-Linking to sp version:1.5-0
-To mute warnings of possible GDAL/OSR exportToProj4() degradation,
-use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>shp <span class="ot">&lt;-</span> <span class="fu">spTransform</span>(shp, <span class="fu">crs</span>(itn_raster))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>shp <span class="ot">&lt;-</span> <span class="fu">spTransform</span>(shp, <span class="fu">crs</span>(itn_raster))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can plot and see the raster and shapes. Here’s ITN raster.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(itn_raster)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(shp, <span class="at">add=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="MAP_rasters_walkthrough_files/figure-html/itn-raster-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(itn_raster)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(shp, <span class="at">add=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And here’s population raster. There are a little misalignment in the north for this raster, but for our purpose, this problem is not too big.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pop_raster)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(shp, <span class="at">add=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="MAP_rasters_walkthrough_files/figure-html/pop-raster-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pop_raster)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(shp, <span class="at">add=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="naïve-extraction" class="level3">
 <h3 class="anchored" data-anchor-id="naïve-extraction">Naïve Extraction</h3>
 <p>The most naïve way of extracting values for each district here is to directly use the <code>extract()</code> function. When supplied with a set of polygons (shapes), the function pull the values underlying all the pixels within the shapes, and aggregate them, say by taking means. The function can be supplied by a set of points too.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> shp<span class="sc">@</span>data <span class="co"># Pull data out of shapefiles (District names etc.)</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract and aggregate using mean function</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>itn_cov <span class="ot">&lt;-</span> <span class="fu">extract</span>(itn_raster, shp, <span class="at">fun=</span>mean)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at values for Bittou district</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>df[df<span class="sc">$</span>NOMDEP<span class="sc">==</span><span class="st">'BITTOU'</span>, <span class="fu">c</span>(<span class="st">'NOMDEP'</span>, <span class="st">'NOMREGION'</span>, <span class="st">'itn_cov'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   NOMDEP  NOMREGION   itn_cov
-53 BITTOU CENTRE-EST 0.7512201</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> shp<span class="sc">@</span>data <span class="co"># Pull data out of shapefiles (District names etc.)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract and aggregate using mean function</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>itn_cov <span class="ot">&lt;-</span> <span class="fu">extract</span>(itn_raster, shp, <span class="at">fun=</span>mean)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at values for Bittou district</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>df[df<span class="sc">$</span>NOMDEP<span class="sc">==</span><span class="st">'BITTOU'</span>, <span class="fu">c</span>(<span class="st">'NOMDEP'</span>, <span class="st">'NOMREGION'</span>, <span class="st">'itn_cov'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="population-weighted-extraction" class="level3">
 <h3 class="anchored" data-anchor-id="population-weighted-extraction">Population-weighted extraction</h3>
 <p>Sometimes averaging each pixel without weights doesn’t feel quite “right”: Pixels inside uninhabited forests aren’t the same as pixels inside a crowded town when we care about ITN coverage. Therefore, we may elect to use population map to weight the pixels and obtain a population-weighted estimate for each district.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First try to stack the ITN and Population map</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">## To do so, need to ensure two maps cover same area</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Crop ITN raster according to Population raster</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>itn_raster_cr <span class="ot">&lt;-</span> <span class="fu">crop</span>(itn_raster, pop_raster)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Lower resolution of Population raster to the level of ITN raster</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>pop_raster_res <span class="ot">&lt;-</span> <span class="fu">resample</span>(pop_raster, itn_raster_cr, )</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Stacking the raster</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>itn_pop_stack <span class="ot">&lt;-</span> <span class="fu">stack</span>(itn_raster_cr, pop_raster_res)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the raster stack according to the shapes, no aggregation</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">extract</span>(itn_pop_stack, shp)</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Define functions to calculate weighted average from output matrix</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>weighted_avg <span class="ot">&lt;-</span> <span class="cf">function</span> (x, w) <span class="fu">sum</span>(x <span class="sc">*</span> w) <span class="sc">/</span> <span class="fu">sum</span>(w)</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>estim_from_matrix <span class="ot">&lt;-</span> <span class="cf">function</span> (mat) {</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  mat <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(mat)</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">weighted_avg</span>(mat[,<span class="dv">1</span>], mat[,<span class="dv">2</span>]))</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First try to stack the ITN and Population map</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="do">## To do so, need to ensure two maps cover same area</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Crop ITN raster according to Population raster</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>itn_raster_cr <span class="ot">&lt;-</span> <span class="fu">crop</span>(itn_raster, pop_raster)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Lower resolution of Population raster to the level of ITN raster</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>pop_raster_res <span class="ot">&lt;-</span> <span class="fu">resample</span>(pop_raster, itn_raster_cr, )</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Stacking the raster</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>itn_pop_stack <span class="ot">&lt;-</span> <span class="fu">stack</span>(itn_raster_cr, pop_raster_res)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the raster stack according to the shapes, no aggregation</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">extract</span>(itn_pop_stack, shp)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Define functions to calculate weighted average from output matrix</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>weighted_avg <span class="ot">&lt;-</span> <span class="cf">function</span> (x, w) <span class="fu">sum</span>(x <span class="sc">*</span> w) <span class="sc">/</span> <span class="fu">sum</span>(w)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>estim_from_matrix <span class="ot">&lt;-</span> <span class="cf">function</span> (mat) {</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  mat <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(mat)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">weighted_avg</span>(mat[,<span class="dv">1</span>], mat[,<span class="dv">2</span>]))</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Without specifying the aggregating function for <code>extract()</code>, the function pull every single pixel out of the raster stack. Result is a list of matrices, first column is ITN coverage, second column is population count. So we define a function <code>estim_from_matrix()</code> that would calculate weighted average of first column according to second column. <code>sapply()</code> applies the function to each element (matrix) of the list, and combine the output nicely into a vector.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> shp<span class="sc">@</span>data</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df2<span class="sc">$</span>itn_cov <span class="ot">&lt;-</span> <span class="fu">sapply</span>(out, estim_from_matrix)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>df2[df2<span class="sc">$</span>NOMDEP<span class="sc">==</span><span class="st">'BITTOU'</span>, <span class="fu">c</span>(<span class="st">'NOMDEP'</span>, <span class="st">'NOMREGION'</span>, <span class="st">'itn_cov'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   NOMDEP  NOMREGION   itn_cov
-53 BITTOU CENTRE-EST 0.7475682</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> shp<span class="sc">@</span>data</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df2<span class="sc">$</span>itn_cov <span class="ot">&lt;-</span> <span class="fu">sapply</span>(out, estim_from_matrix)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df2[df2<span class="sc">$</span>NOMDEP<span class="sc">==</span><span class="st">'BITTOU'</span>, <span class="fu">c</span>(<span class="st">'NOMDEP'</span>, <span class="st">'NOMREGION'</span>, <span class="st">'itn_cov'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The ITN coverage estimates from population-weighted method is almost the same as the naive method. This is potentially due to the ITN estimates within the district being relatively homogeneous.</p>
 

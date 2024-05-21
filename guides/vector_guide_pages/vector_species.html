@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="single-species" class="level1">
 <h1>Single Species</h1>
 <p>The example below would populate the model with 100% gambiae mosquitoes and can be included in the config builder with a simple <a href="https://github.com/numalariamodeling/emodpy-malaria/blob/main/emodpy_malaria/malaria_config.py"><code>add_species()</code></a>.</p>
-<div id="7a60e58b" class="cell">
+<div id="e36a8205" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> emodpy_malaria.malaria_config <span class="im">as</span> conf</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>conf.add_species(config, manifest, [<span class="st">"gambiae"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="multiple-species" class="level1">
 <h1>Multiple Species</h1>
 <p>We can also include a mix of vector species, adding multiple vector populations with species-specific parameters.</p>
-<div id="3879ce4c" class="cell">
+<div id="54444bc9" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> emodpy_malaria.malaria_config <span class="im">as</span> conf</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>conf.add_species(config, manifest, species_to_select<span class="op">=</span>[<span class="st">"gambiae"</span>, <span class="st">"arabiensis"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -169,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="modify-vector-species-parameters" class="level1">
 <h1>Modify vector species parameters</h1>
 <p>To change vector species parameters from defaults, use the <a href="https://github.com/numalariamodeling/emodpy-malaria/blob/main/emodpy_malaria/vector_config.py"><code>set_species_param()</code></a> function.</p>
-<div id="701a849d" class="cell">
+<div id="120cecf9" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> emodpy_malaria.malaria_config <span class="im">as</span> conf</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Decrease the 'Transmission_Rate' of A. arabiensis from 0.9 (default) to 0.75.</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>conf.set_species_param(config, </span>
@@ -183,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="modify-species-habitat-parameters" class="level1">
 <h1>Modify species habitat parameters</h1>
 <p>The larval habitat parameters for each vector species can also be modified.</p>
-<div id="1c5109ed" class="cell">
+<div id="978f36d0" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> emodpy_malaria.malaria_config <span class="im">as</span> conf</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Add brackish swamp habitat availability for A. arabiensis only. </span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>new_habitats <span class="op">=</span> {<span class="st">"arabiensis"</span>: {<span class="st">"BRACKISH_SWAMP"</span>: <span class="fl">1.7e9</span>, <span class="st">"Max_Larval_Capacity"</span>: <span class="fl">30000000.0</span>}}</span>
