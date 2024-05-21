@@ -148,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Including vector genetics may be useful for some research questions, such as those including information on insecticide resistance.</p>
 <section id="add-basic-vector-genetics" class="level1">
 <h1>Add basic vector genetics</h1>
-<div id="0b2bf01d" class="cell">
+<div id="a217f284" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emodpy_malaria <span class="im">import</span> vector_config <span class="im">as</span> vector_config</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>config.parameters.Simulation_Type <span class="op">=</span> <span class="st">"VECTOR_SIM"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>vector_config.set_team_defaults(config, manifest)  <span class="co"># team defaults</span></span>
@@ -168,7 +168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Additional details on setting up vector genetics are included in the <a href="https://docs.idmod.org/projects/emodpy-malaria/en/latest/emodpy_malaria.vector_config.html#emodpy_malaria.vector_config.add_genes_and_alleles">documentaiton</a>.</p>
 <p>Reporting on vector genetics (abundance of alleles and/or genotypes) is requested like so, with additional <a href="https://docs.idmod.org/projects/emodpy-malaria/en/latest/emodpy_malaria.reporters.builtin.html#emodpy_malaria.reporters.builtin.add_report_vector_genetics">parameters availabe</a>:</p>
-<div id="9dde62bd" class="cell">
+<div id="6ab79d80" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emodpy_malaria.reporters.builtin <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>add_report_vector_genetics(task, manifest, species <span class="op">=</span> <span class="st">'gambiae'</span>,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                            gender <span class="op">=</span> <span class="st">'VECTOR_FEMALE'</span>,</span>
@@ -179,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="relate-genotype-to-phenotype" class="level1">
 <h1>Relate genotype to phenotype</h1>
 <p>The <code>Insecticides</code> config param is a list of dictionaries, one per insecticide. For each insecticide, genotype-specific modifications of killing, blocking, repelling, and larval killing can be set and resistance can be added using <a href="https://docs.idmod.org/projects/emodpy-malaria/en/latest/emodpy_malaria.vector_config.html#emodpy_malaria.vector_config.add_insecticide_resistance"><code>add_insecticide_resistance()</code></a>. In this example, all <em>A. gambiae</em> vectors with an allele combination of “bb” will be completely resistant to pyrethroid.</p>
-<div id="4ce012d4" class="cell">
+<div id="b4ee3d6f" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emodpy_malaria <span class="im">import</span> vector_config <span class="im">as</span> vector_config</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>vector_config.add_insecticide_resistance(config, manifest, <span class="st">"pyrethroid"</span>, <span class="st">"gambiae"</span>, </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                          allele_combo<span class="op">=</span>[[<span class="st">"b"</span>, <span class="st">"b"</span>]],</span>
